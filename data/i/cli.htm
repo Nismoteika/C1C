@@ -1,0 +1,13 @@
+<section id="cli">
+    <form id="cmd-form">
+        <input type="text" id="inp-text" class="black" placeholder="write the command">
+        <input type="submit" class="black">
+    </form>
+</section>
+<script>
+    $('#cmd-form').submit(function(e) {
+        e.preventDefault();
+        sock.send($('#inp-text').val().toUpperCase());
+        console.log($('#inp-text').val().toUpperCase());
+    })
+</script>
