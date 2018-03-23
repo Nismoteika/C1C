@@ -1,2 +1,2 @@
 # C1C
-projector (at now support SANYO/EIKI api) remote control
+projector remote control (at now support SANYO/EIKI api)
