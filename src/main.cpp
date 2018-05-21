@@ -5,18 +5,16 @@
 #include <ESP8266mDNS.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
-#include <ArduinoJson.h>
 #include <SoftwareSerial.h>
 #include <FS.h>
 
 const char* ap_ssid = "C1C";
-const char* ap_pass = "dgrrew328sfe@";
+const char* ap_pass = "********";
 const char* OTAhost = "c1c";
 
 String statuss = "80";
 String shutter = "open";
-String projFreeze = "nope";
-int8 powerChecker = 0;
+String projFreeze = "active";
 u32 timing;
 String comanda = "";
 bool waitAnswer = false;
@@ -32,10 +30,10 @@ void saveStatus(String cmd, String stat) {
         shutter = "open";
     else if(cmd == "C0D")
         shutter = "close";
-    else if(cmd == "C43")
-        projFreeze = "nope";
     else if(cmd == "C44")
-        projFreeze = "freez";
+        projFreeze = "active";
+    else if(cmd == "C43")
+        projFreeze = "freeze";
 }
 
 void sendCmdToDevice(char* data) {
@@ -48,8 +46,7 @@ void onEvent(AsyncWebSocket * server, AsyncWebSocketClient * client, AwsEventTyp
     if(type == WS_EVT_CONNECT) {
         //client connected
         Serial.printf("ws[%s][%u] connect\n", server->url(), client->id());
-        client->printf("Stats: %s %s %s", statuss.c_str(), shutter.c_str(), projFreeze.c_str());
-        client->printf("Hello Client %u :)", client->id());
+        client->printf("INFO: %s %s %s", statuss.c_str(), shutter.c_str(), projFreeze.c_str());
         client->ping();
     } else if(type == WS_EVT_DISCONNECT){
         //client disconnected
@@ -67,20 +64,8 @@ void onEvent(AsyncWebSocket * server, AsyncWebSocketClient * client, AwsEventTyp
             //the whole message is in a single frame and we got all of it's data
             if(info->opcode == WS_TEXT){
                 data[len] = 0;
-                if(strcmp((char*)data, "power") == 0) { 
-                    if(statuss == "80" || statuss == "04")
-                        sendCmdToDevice((char*)"C00");
-                    else if(statuss == "00")
-                        sendCmdToDevice((char*)"C01");
-                    delay(1000);
-                    powerChecker = 1;
-                } else { 
-                    sendCmdToDevice((char*)data);
-                }
+                sendCmdToDevice((char*)data);
             }
-        } else {
-            //message is comprised of multiple frames or the frame is split into multiple packets
-            client->printf("too much data");
         }
     }
 }
@@ -121,18 +106,11 @@ void setup() {
 void loop() {
     ArduinoOTA.handle();
 
-    if(powerChecker > 0 && powerChecker < 3 && millis() - timing > 15000) {
-        timing = millis();
-        delay(1000);
-        sendCmdToDevice((char*)"CR0");
-        powerChecker++;
-    }
-
     if(waitAnswer) {
         String answer = "noans";
         String serialText = "nil";
         while(softSerial.available() == 0) {
-            delay(250);
+            delay(200);
         }
         if(softSerial.available() > 0) {
             serialText = softSerial.readStringUntil('\r');

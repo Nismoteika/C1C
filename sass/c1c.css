@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'c1c';
-  src: url('../font/c1c.ttf?39140354') format('truetype');
+  src: url('../font/c1c.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -48,4 +48,3 @@
 .icon-left-open:before { content: '\f007'; } /* '' */
 .icon-menu:before { content: '\f008'; } /* '' */
 .icon-th-thumb-empty:before { content: '\f00b'; } /* '' */
-.icon-ok-circled:before { content: '\f06d'; color: greenyellow; } /* '' */

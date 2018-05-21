@@ -1,13 +1,11 @@
 var sock = new WebSocket("ws://192.168.4.1/ws");
 
 sock.onopen = function() {
-    $('#status span').text("Connected");
-    $('#status i').css("color", "#409F2C");
+    $('#status span').text("Connected").css("color", "#409F2C");
 }
 
 sock.onclose = function() {
-    $('#status span').text("Disconnected");
-    $('#status i').css("color", "#B83340");
+    $('#status span').text("Disconnected").css("color", "#B83340");
 }
 
 sock.onerror = function(err) {
@@ -17,7 +15,6 @@ sock.onerror = function(err) {
 sock.onmessage = function(event) {
     prepareData(event.data);
     $('#log').prepend(`<span>${event.data}</span>`);
-    console.log(event.data);
 }
 
 $.get('main.htm', function(data) {
@@ -38,9 +35,10 @@ function prepareData(data) {
     } else if(partData[2] == "open") {
         $('#shutter').prop("checked", false);
     }
-    if(partData[3] == "freez") { //freeze
+    if(partData[3] == "freeze") { //freeze
         $('#freeze').prop("checked", true);
-    } else if(partData[3] == "nope") {
+    } else if(partData[3] == "active") {
         $('#freeze').prop("checked", false);
     }
+    //return partData.join(" ");
 }
