@@ -9,11 +9,11 @@ C1C solves problems of IR signal availability, as well as provides a convenient 
 ____
 
 ## Content
-1. [Installation](#Installation)
-2. [How to build up](#How-to-build-up)
-3. [Usage](#Usage)
-4. [Our build](#Our-build)
-5. [Web interface](#Web-interface)
+1. [Installation](#installation)
+2. [How to build up](#how-to-build-up)
+3. [Usage](#usage)
+4. [Our build](#our-build)
+5. [Web interface](#web-interface)
 
 ## Installation
 
@@ -35,16 +35,16 @@ ____
 ## How to build up
 1. You need esp8266 module and adapter from serial to COM port
 2. Connect esp8266 and adapter as shown in picture down
-![connect like this](https://github.com/Nismoteika/C1C/raw/master/assets/scheme.png "connect like this")
+<img src="https://github.com/Nismoteika/C1C/raw/master/assets/scheme.png" align="center" width="360" alt="connect like this">
 3. Only the body is left to be made, any suitable in size
 
 ## Usage
 1. Connect to Wi-Fi named C1C with your password
 2. Open webpage `192.168.4.1`
-3. You will see the [web interface](#Web-interface).
+3. You will see the [web interface](#web-interface).
 
 ## Our build
-![build](https://github.com/Nismoteika/C1C/raw/master/assets/ourbuild.png "our build")
+<img src="https://github.com/Nismoteika/C1C/raw/master/assets/ourbuild.png" align="center" height="350" width="360" alt="our build">
 
 ## Web interface
-![interface](https://github.com/Nismoteika/C1C/raw/master/assets/interface.png "web interface")
+<img src="https://github.com/Nismoteika/C1C/raw/master/assets/interface.png" align="center" width="250" alt="web interface">
